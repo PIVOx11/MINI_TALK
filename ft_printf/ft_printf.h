@@ -26,4 +26,7 @@ int		ft_print_hexa(unsigned int n, char x_X);
 void	hexa_convertor(unsigned int n, char c);
 int		ft_address(unsigned long addr);
 
+// utils
+int	ft_atoi(const char *nptr);
+
 #endif
