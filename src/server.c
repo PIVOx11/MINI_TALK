@@ -1,8 +1,20 @@
-#include <unistd.h>
+#include <signal.h>
+#include "../ft_printf/ft_printf.h"
 
-
-
-int main()
+void handler(int sig)
 {
-    write()
+    ft_printf("Signal is HEREEEEEEEEEEEE :(\n");
+}
+
+int main(void)
+{
+    struct sigaction sa;
+    sa.sa_handler = handler;
+    sigaction(11, &sa, NULL);
+
+    ft_printf("PID: %d\n", getpid());
+    while (1)
+    {
+
+    }
 }
