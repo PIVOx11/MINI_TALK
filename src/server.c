@@ -1,5 +1,4 @@
-#include <signal.h>
-#include "../ft_printf/ft_printf.h"
+#include "../Headers/minitalk.h"
 
 unsigned char    byte;
 
@@ -8,14 +7,19 @@ void handler(int sig)
 {
     static int     bit;
 
-    if (sig == SIGUSR1)
+    if (sig == SIGINT)
+    {    
+        write(1, "\nSERVER EXIT !\n", 15);
+        exit(1);
+    }
+        if (sig == SIGUSR1)
     {
         byte |= (1 << 7 - bit);
     }
     bit++;
     if (bit == 8)
     {
-        ft_char(byte);
+        write(1, &byte, 1);
         bit = 0;
         byte = 0;
     }
@@ -28,8 +32,10 @@ int main(void)
 
     sigaction(SIGUSR1, &sa, NULL);
     sigaction(SIGUSR2, &sa, NULL);
+    sigaction(SIGINT, &sa, NULL);
 
-    ft_printf("PID: %d\n", getpid());
+    putnbr(getpid());
+    write(1, "\n", 1);
     while (1)
     {
         pause();
