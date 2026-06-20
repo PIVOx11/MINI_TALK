@@ -8,13 +8,13 @@ void send_bits(int pid, char c)
     i = 8;
     while (--i >= 0)
     {
-        if ((c >> i) & 1)
-        {
-            kill(pid, SIGUSR1);
-        }else{
-            kill(pid, SIGUSR2);
-        }
-            usleep(555);
+    if ((c >> i) & 1)
+    {
+        kill(pid, SIGUSR1);
+    }else{
+        kill(pid, SIGUSR2);
+    }
+        usleep(555);
     }
 
 }

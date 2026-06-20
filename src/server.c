@@ -12,10 +12,10 @@ void handler(int sig)
         write(1, "\nSERVER EXIT !\n", 15);
         exit(1);
     }
-        if (sig == SIGUSR1)
-    {
+    if (sig == SIGUSR1)
         byte |= (1 << 7 - bit);
-    }
+    else if (sig == SIGUSR1)
+        byte |= (0 << 7 - bit);
     bit++;
     if (bit == 8)
     {
@@ -27,9 +27,12 @@ void handler(int sig)
 
 int main(void)
 {
+    sigset_t set;
     struct sigaction sa;
-    sa.sa_handler = handler;
 
+    sa.sa_handler = handler;
+    sa.sa_mask = set;
+    sigemptyset(&set);
     sigaction(SIGUSR1, &sa, NULL);
     sigaction(SIGUSR2, &sa, NULL);
     sigaction(SIGINT, &sa, NULL);
